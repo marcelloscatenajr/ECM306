@@ -39,6 +39,10 @@ class Heap:
                 
     
     def add(self, *items):
+        '''
+        Adds element to end of heap
+        and then heapifies the list upwards
+        '''
         for i in items:
             self.size += 1
             self.items.append(i)
