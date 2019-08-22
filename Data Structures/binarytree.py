@@ -35,6 +35,19 @@ class BinaryTree:
             yield node.data
             yield from self.inorder_gen(node.right) if node.right else ()
 
+    def pre_order_gen(self, node = None):
+        '''
+        inorder algorithm yielding generator for use in 
+        generator expression \n
+
+        Yields:\n
+        '''
+        node = self.root if node is None else ()
+
+        if node is not None:
+            raise NotImplementedError
+            #IMPLEMENT
+
             
 
 
