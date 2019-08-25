@@ -1,10 +1,14 @@
 class BinaryTree:
     '''
-    generic tree implementation in python
+    simple binary tree implementation in python
+
+    Args:\n
+    \troot (Node): sets the root of this tree as the one passed
+    \tAllows easy division of binary tree
     '''
 
-    def __init__(self):
-        self.root = Node(0)
+    def __init__(self, root = None):
+        self.root = root
 
     def __iter__(self):
         '''
@@ -21,7 +25,11 @@ class BinaryTree:
         return len([i for i in self])
 
     def __repr__(self):
-        return "Inorder:\n%s\nPreorder:\n%s\nPostorder:\n%s" % (str([i.data for i in self.inorder_gen()]), str([i.data for i in self.pre_order_gen()]), str([i.data for i in self.post_order_gen()]))
+        return str([i.data for i in self.inorder_gen()])
+    
+    def __str__(self):
+        return "Preorder:\n%s\nInorder:\n%s\nPostorder:\n%s" % (str([i.data for i in self.pre_order_gen()]), str([i.data for i in self.inorder_gen()]), str([i.data for i in self.post_order_gen()]))
+
 
 
     def __contains__(self, value):
@@ -97,6 +105,21 @@ class BinaryTree:
             yield from self.post_order_gen(node.right) if node.right else ()
             yield node
 
+    #ROOT SETTER
+    
+    @property
+    def root(self):
+        return self.__root
+    
+    @root.setter
+    def root(self, root):
+        if isinstance(root, Node):
+            self.__root = root
+        elif root is None:
+            self.__root = root
+        else:
+            self.__root = Node(root)
+
     def mean(self):
         '''
         Returns:\n
@@ -127,7 +150,6 @@ class BinaryTree:
         Return:\n
         \theight (int): height of said node
         '''
-        #new = None
         if node == 'root':
             new = self.root
         else:
@@ -141,7 +163,34 @@ class BinaryTree:
             rightH = self.height(new.right)
 
             return 1 + max(leftH, rightH)
+            
 
+    def sum(self):
+        '''
+        Returns:\n
+        \tSum of all of the keys in the nodes
+        \tValue must be able to be added
+        \tExample(node.data : int + node.data : tuple)
+        '''
+        return sum(i.data for i in self)
+    
+    def multiplos_de_dois(self):
+        '''
+        Yields:\n
+        \tyields the even values in the tree
+        \tvalues must be numbers
+        \tExample(node.data : int + node.data : tuple)
+        '''
+        for i in self:
+            if i.data % 2 == 0:
+                yield i.data  
+
+    def clear(self):
+        '''
+        clears the tree by setting root to null\n
+        doesn't actually clear all the nodes from the memory
+        '''
+        self.root = None
 
 class Node:
     '''
